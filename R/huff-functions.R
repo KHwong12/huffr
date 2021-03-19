@@ -26,11 +26,21 @@ compute_attractiveness = function(size, distance, exponent_coef = 2) {
 #' @examples
 compute_select_prob = function(od_matrix, size, exponent_coef) {
 
-  od_size = left_join(od_matrix, size, by = "destionation_id")
+  # Sanity check, ensure no rows will have Inf attractiveness
+  if (any(od_matrix$distance == 0)) {
+    stop(
+      "Some of the distance in the OD matrix is 0! Gravity model does not support OD rows with values of 0!\n
+       Consider add a tiny number (0.1) to those 0 values"
+    )
+  }
+
+  # TODO: sanity check to ensure all destinations in od_matrix have size attribute after join
+
+  od_size = left_join(od_matrix, size, by = "destination")
 
   # TODO: use `compute_attractiveness`
   od_size = od_size %>%
-    mutate(attr = size / (distance)^exponent_coef)
+    mutate(attr = size / (distance) ^ exponent_coef)
 
   # Get total attractiveness of each residential building
   attr_total = od_size %>%
