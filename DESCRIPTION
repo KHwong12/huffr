@@ -1,0 +1,10 @@
+Package: huffr
+Type: Package
+Title: Apply Huff Gravity Model in R
+Version: 0.0.1
+Author: Kenneth Wong
+Maintainer: Kenneth Wong <khwongk12@gmail.com>
+Description: Apply Huff Gravity Model in R, EXPERIMENTAL PACKAGE
+License: TODO
+Encoding: UTF-8
+LazyData: true
